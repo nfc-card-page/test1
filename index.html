@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>نمونه‌کار </title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    :root{
+      --bg:#050816;
+      --bubble1:#6aa6ff;
+      --bubble2:#7ee8c2;
+      --bubble3:#c084fc;
+      --muted:rgba(230,238,248,0.82);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--bg);font-family:'Vazirmatn',Tahoma,Arial,sans-serif;color:var(--muted)}
+
+    /* floating bubbles background */
+    .bubble{position:absolute;border-radius:50%;opacity:.18;animation:float 20s infinite ease-in-out}
+    .b1{width:220px;height:220px;background:var(--bubble1);left:10%;top:70%;animation-duration:26s}
+    .b2{width:140px;height:140px;background:var(--bubble2);left:60%;top:80%;animation-duration:20s;animation-delay:-5s}
+    .b3{width:180px;height:180px;background:var(--bubble3);left:30%;top:90%;animation-duration:30s;animation-delay:-12s}
+
+    @keyframes float{
+      0%{transform:translateY(0) scale(1)}
+      50%{transform:translateY(-200px) scale(1.2)}
+      100%{transform:translateY(0) scale(1)}
+    }
+
+    /* circular card */
+    .circle-card{position:relative;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.05),rgba(255,255,255,0.01));border:2px solid rgba(255,255,255,0.06);box-shadow:0 18px 60px rgba(3,10,20,0.8);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;backdrop-filter:blur(12px);z-index:1;}
+
+    .avatar{width:110px;height:110px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,0.08);box-shadow:0 10px 40px rgba(102,126,234,0.15);transition:transform .5s}
+    .avatar:hover{transform:scale(1.06)}
+
+    h1{margin:10px 0 4px;font-size:1.25rem;color:#fff}
+    .role{color:var(--bubble1);font-weight:600;margin-bottom:10px}
+
+    .contact{font-size:0.9rem;line-height:1.5}
+    .contact a{color:var(--muted);text-decoration:none}
+
+    .socials{margin-top:14px;display:flex;gap:12px;justify-content:center}
+    .socials a{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;box-shadow:0 8px 26px rgba(3,10,20,0.5)}
+    .insta{background:linear-gradient(135deg,#ff7eb6,#a96bff)}
+    .telegram{background:linear-gradient(135deg,#6aa6ff,#34d399)}
+    .whatsapp{background:linear-gradient(135deg,#34d399,#10b981)}
+
+    .btn{margin-top:12px;background:linear-gradient(90deg,var(--bubble1),var(--bubble2));color:#04202a;padding:8px 16px;border-radius:20px;font-weight:700;border:none;cursor:pointer;box-shadow:0 8px 30px rgba(99,102,241,0.12);transition:transform .25s}
+    .btn:hover{transform:translateY(-4px)}
+
+    /* bank cards list below */
+    .cards-panel{margin-top:30px;width:340px;background:rgba(255,255,255,0.02);padding:16px;border-radius:18px;box-shadow:0 12px 40px rgba(3,10,20,0.6);backdrop-filter:blur(8px);z-index:1}
+    .panel-title{font-weight:700;color:var(--bubble3);text-align:right;margin-bottom:12px}
+
+    .card-item{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:12px;background:rgba(255,255,255,0.02);margin-bottom:10px}
+    .bank-name{font-weight:800;color:var(--bubble2)}
+    .cc-num{font-family:monospace;letter-spacing:2px;color:#fff}
+    .copy-btn{background:linear-gradient(90deg,var(--bubble2),var(--bubble1));border:none;padding:6px 12px;border-radius:10px;cursor:pointer;font-weight:700;color:#04202a}
+    .copy-msg{display:none;color:var(--bubble2);margin-top:8px;text-align:center;font-weight:700}
+  </style>
+</head>
+<body>
+  <div class="bubble b1"></div>
+  <div class="bubble b2"></div>
+  <div class="bubble b3"></div>
+
+  <div>
+    <div class="circle-card">
+      <img src="sample-profile.jpg" alt="عکس " class="avatar">
+      <h1>نام </h1>
+      <div class="role">توضیحات</div>
+      <div class="contact">
+        <div><i class="fa fa-phone"></i> <a id="phone" href="tel:09000000000"><span id="phone-text">09000000000</span></a></div>
+      
+      </div>
+      <button class="btn" onclick="downloadVCF()">ذخیره مخاطب</button>
+      <div class="socials">
+        <a id="insta" class="insta" href="#"><i class="fab fa-instagram"></i></a>
+        <a id="telegram" class="telegram" href="#"><i class="fab fa-telegram"></i></a>
+        <a id="whatsapp" class="whatsapp" href="#"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+
+    <div class="cards-panel" id="cards-panel">
+      <div class="panel-title">شماره کارت‌ها</div>
+      <div class="card-item">
+        <div class="bank-name">بانک نمونه</div>
+        <div class="cc-num">0000 0000 0000 0000</div>
+        <button class="copy-btn" onclick="copyCard('0000000000000000', this)">کپی</button>
+      </div>
+      <div class="card-item">
+        <div class="bank-name">بانک تست</div>
+        <div class="cc-num">0000 0000 0000 0000</div>
+        <button class="copy-btn" onclick="copyCard('0000000000000000', this)">کپی</button>
+      </div>
+      <div id="copy-msg" class="copy-msg">کپی شد!</div>
+    </div>
+  </div>
+
+  <script>
+    const number = '09000000000';
+    const instagramId = 'instagram_user';
+    const telegramId = 'telegram_user';
+
+    document.addEventListener('DOMContentLoaded',()=>{
+      document.getElementById('phone-text').textContent = number;
+      document.getElementById('phone').href = 'tel:'+number;
+      document.getElementById('insta').href = 'https://instagram.com/'+instagramId;
+      document.getElementById('telegram').href = 'https://t.me/'+telegramId;
+      document.getElementById('whatsapp').href = 'https://wa.me/98'+number.replace(/^0/, '');
+    });
+
+    function downloadVCF(){
+      const vcf = `BEGIN:VCARD\nVERSION:3.0\nFN:نام نمونه\nTEL;TYPE=CELL:${number}\nEMAIL:example@example.com\nEND:VCARD`;
+      const blob = new Blob([vcf],{type:'text/vcard'});
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download='sample_contact.vcf'; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    }
+
+    function copyCard(num, el){
+      navigator.clipboard.writeText(num).then(()=>{
+        const m = document.getElementById('copy-msg'); m.style.display='block'; setTimeout(()=>m.style.display='none',1200);
+      });
+    }
+  </script>
+</body>
+</html>
